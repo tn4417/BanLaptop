@@ -1,0 +1,51 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage1.master.cs" Inherits="BanLaptop.MasterPage1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link href="CSS/Style1.css" rel="stylesheet" />
+    <title>Thế Giới Linh Kiện Laptop</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div id="Container">
+            <div id="Menu">
+                <ul id="Navigation">
+                    <li><a href="Home.aspx" class="selected">Home</a></li>
+                    <li><a href="Search.aspx">Search</a></li>
+                    <li><a href="Contact.aspx">Contact Us</a></li>
+                </ul>
+            </div>
+            <div id="Banner">
+                <asp:Image ID="Image1" runat="server" Height="43px" ImageUrl="Image/Banner_bg.jpg" Width="100%" />
+            </div>
+            <div id="BreadCrumb">
+                Danh mục
+            </div>
+            <div id="Sidebar">
+
+                <asp:DataList ID="DataList1" runat="server" DataKeyField="MaLoai" DataSourceID="SqlDataSource1">
+                    <ItemTemplate>
+                        <asp:HyperLink ID="HyperLink1" runat="server" Text='<%# Eval("TenLoai") +" ("+Eval("SL")+")" %>' NavigateUrl='<%# "~/ProductByCategory.aspx?ml="+Eval("MaLoai") %>'></asp:HyperLink>
+                        <br />
+                        <br />
+                    </ItemTemplate>
+                </asp:DataList>
+                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:QL_DTDD1ConnectionString %>" SelectCommand="select Loai.MaLoai,Loai.TenLoai,Count(Loai.TenLoai) as 'SL' from Loai,SanPham where Loai.MaLoai=SanPham.MaLoai group by Loai.TenLoai,Loai.MaLoai"></asp:SqlDataSource>
+
+            </div>
+            <div id="Contain">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+            <div class="clear"></div>
+            <div id="Footer">&copy Copyright Nguyen - Triet</div>
+        </div>
+    </form>
+    <%-- Dochat --%>
+    <script async src="https://dochat.vn/code.js?id=9200814083402631545">Dochat</script>
+</body>
+</html>
